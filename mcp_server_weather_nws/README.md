@@ -1,4 +1,4 @@
-# mcp-server-weather-nws
+# mcp_server_weather_nws
 
 An MCP (Model Context Protocol) server that integrates with the US National Weather Service (NWS) API to retrieve active weather alerts and feed them to LLM assistants.
 
@@ -21,7 +21,7 @@ Ensure you have `uv` installed (Astral's fast Python package manager).
 
 1.  Navigate to this directory:
     ```bash
-    cd mcp-server-weather-nws
+    cd mcp_server_weather_nws
     ```
 
 2.  Sync the dependencies and build the virtual environment:
@@ -50,7 +50,7 @@ To use this server with your LLM client, add it to your client's configuration f
       "command": "uv",
       "args": [
         "--directory",
-        "/absolute/path/to/mcp-server-weather-nws",
+        "/absolute/path/to/mcp_server_weather_nws",
         "run",
         "weather.py"
       ]
@@ -59,4 +59,4 @@ To use this server with your LLM client, add it to your client's configuration f
 }
 ```
 
-*Note: Replace `/absolute/path/to/mcp-server-weather-nws` with the actual path to this directory on your machine.*
+*Note: Replace `/absolute/path/to/mcp_server_weather_nws` with the actual path to this directory on your machine.*
