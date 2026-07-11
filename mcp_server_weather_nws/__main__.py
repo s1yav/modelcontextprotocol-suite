@@ -1,4 +1,3 @@
-from . import main
+from mcp_server_weather_nws import main
 
-if __name__ == "__main__":
-    main()
+main()
