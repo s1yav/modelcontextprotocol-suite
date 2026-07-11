@@ -8,3 +8,10 @@ dependencies = [
     "httpx>=0.28.1",
     "mcp[cli]>=1.28.1",
 ]
+
+[project.scripts]
+mcp-server-weather-nws = "mcp_server_weather_nws:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
