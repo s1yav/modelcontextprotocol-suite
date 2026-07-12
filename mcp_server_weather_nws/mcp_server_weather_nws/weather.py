@@ -51,3 +51,40 @@ async def get_alerts(state: str) -> str:
     
     formatted_alerts = [format_alert(feature) for feature in data["features"]]
     return "\n-----\n".join(formatted_alerts)
+
+@mcp.tool()
+async def get_forecast(latitude: float, longitude: float) -> str:
+    """Get weather forecast for a location.
+
+    Args:
+        latitude: Latitude of the location
+        longitude: Longitude of the location
+    """
+    points_endpoint = f"{NWS_API_BASE}/points/{latitude},{longitude}"
+    points_data = await make_nws_request(points_endpoint)
+
+    if not points_data or "properties" not in points_data or "forecast" not in points_data["properties"]:
+        return f"Error: Unable to fetch forecast for latitude {latitude}, longitude {longitude}"
+
+    forecast_url = points_data["properties"]["forecast"]
+    forecast_data = await make_nws_request(forecast_url)
+
+    if not forecast_data or "properties" not in forecast_data or "periods" not in forecast_data["properties"]:
+        return f"Error: Unable to fetch detailed forecast data for latitude {latitude}, longitude {longitude}"
+
+    periods = forecast_data["properties"]["periods"]
+    forecasts = []
+
+    for period in periods[:5]:
+        name = period.get("name", "Forecast")
+        temp = period.get("temperature", "N/A")
+        unit = period.get("temperatureUnit", "F")
+        detailed = period.get("detailedForecast", "No details available.")
+        
+        forecast = f"""
+    {name}: {temp}°{unit}
+    {detailed}
+        """
+        forecasts.append(forecast.strip())
+
+    return "\n-----\n".join(forecasts)
