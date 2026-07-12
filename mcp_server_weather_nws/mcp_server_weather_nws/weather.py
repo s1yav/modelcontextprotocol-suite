@@ -76,14 +76,17 @@ async def get_forecast(latitude: float, longitude: float) -> str:
     forecasts = []
 
     for period in periods[:5]:
-        name = period.get("name", "Forecast")
+        name = period.get("name", "Untitled")
         temp = period.get("temperature", "N/A")
         unit = period.get("temperatureUnit", "F")
+        wind_speed = period.get("windSpeed", "N/A")
+        wind_direction = period.get("windDirection", "N/A")
         detailed = period.get("detailedForecast", "No details available.")
         
         forecast = f"""
     {name}: {temp}°{unit}
-    {detailed}
+    Wind: {wind_speed} {wind_direction}
+    Forecast: {detailed}
         """
         forecasts.append(forecast.strip())
 
